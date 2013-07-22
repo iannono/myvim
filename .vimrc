@@ -30,7 +30,7 @@ let g:rubycomplete_buffer_loading = 0
 let g:rubycomplete_classes_in_global = 1
 let g:rubycomplete_rails = 1
 
-set lines=60 columns=120
+set lines=60 columns=80
 
 function ClosePair(char)
       if getline('.')[col('.') - 1] == a:char
@@ -52,3 +52,7 @@ let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 "let g:ctrlp_user_command = 'find %s -type f'        " MacOSX/Linux
 let g:ctrlp_user_command = 'dir %s /-n /b /s /a-d'  " Windows
 
+"----javascript config
+let g:html_indent_inctags = "html,body,head,tbody"
+let g:html_indent_script1 = "inc"
+let g:html_indent_style1 = "inc"
