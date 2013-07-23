@@ -7,8 +7,9 @@ set tabstop=2
 set shiftwidth=2
 
 colorscheme blackboard  
-set guifont=Monaco     
-set gfw=Monaco
+set guifont=Inconsolata:h13:cANSI "for windows
+"set guifont=Monaco     
+"set gfw=Monaco
 set nu!
 set showmatch
 set cursorline
