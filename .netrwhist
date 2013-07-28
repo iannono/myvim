@@ -1,2 +1,8 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =0
+let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_1='/home/ian'
+let g:netrw_dirhist_2='/home/ian/union-prepare/xiongbo/sample_app'
+let g:netrw_dirhist_3='/home/ian/union-prepare/xiongbo/sample_app/app'
+let g:netrw_dirhist_4='/home/ian/union-prepare/xiongbo/sample_app/app/views'
+let g:netrw_dirhist_5='/home/ian/union-prepare/xiongbo/sample_app/app/views/layouts'
+let g:netrw_dirhist_6='/home/ian/union-prepare/xiongbo/sample_app'
