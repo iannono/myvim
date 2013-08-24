@@ -1,12 +1,13 @@
 execute pathogen#infect()
 syntax on
 filetype plugin indent on
+let mapleader=","
 
 set expandtab
 set tabstop=2
 set shiftwidth=2
 
-colorscheme blackboard  
+"colorscheme blackboard  
 "set guifont=Inconsolata:h13:cANSI "for windows
 set guifont=Monaco     
 set gfw=Monaco
@@ -22,16 +23,44 @@ set smartindent
 set backspace=2
 set autoindent
 set nocompatible
+set shell=bash
 set fileencodings=ucs-bom,utf-8,chinese
 set clipboard+=unnamed "windows
 
-map <c-s> :w<cr> 
+" store temporary files in a central spot
+set backup
+set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+
+" color
+:set t_Co=256
+:set background=dark
+
+" move around splits with <c-hjkl>
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
+
+" rename current file
+function! RenameFile()
+  let old_name = expand('%')
+  let new_name = input('New file name: ', expand('%'))
+  if new_name != '' && new_name != old_name
+    exec ':saveas ' . new_name
+    exec ':silent !rm ' . old_name
+    redraw!
+  endif
+endfunction
+map <leader>n :call RenameFile()<cr> 
+          
+" map key
+nmap <leader>w :w<cr>
+nmap <leader>e :e<Space>
 
 let g:rubycomplete_buffer_loading = 0
 let g:rubycomplete_classes_in_global = 1
-let g:rubycomplete_rails = 1
-
-set lines=80 columns=120
+let g:rubycomplete_rails = 1 
 
 function ClosePair(char)
       if getline('.')[col('.') - 1] == a:char
