@@ -13,8 +13,14 @@ set guifont=Monaco
 set gfw=Monaco
 set nu!
 set showmatch
+set incsearch
+set hlsearch
 set cursorline
 set cuc
+set cmdheight=2
+set showtabline=2
+set winwidth=79
+set shell=bash
 set mouse=a
 set writebackup
 set nobackup
@@ -23,7 +29,6 @@ set smartindent
 set backspace=2
 set autoindent
 set nocompatible
-set shell=bash
 set fileencodings=ucs-bom,utf-8,chinese
 set clipboard+=unnamed "windows
 
@@ -35,6 +40,7 @@ set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 " color
 :set t_Co=256
 :set background=dark
+:color grb256
 
 " move around splits with <c-hjkl>
 nnoremap <c-j> <c-w>j
@@ -57,6 +63,7 @@ map <leader>n :call RenameFile()<cr>
 " map key
 nmap <leader>w :w<cr>
 nmap <leader>e :e<Space>
+nmap <leader>q :q<cr>
 
 let g:rubycomplete_buffer_loading = 0
 let g:rubycomplete_classes_in_global = 1
