@@ -7,7 +7,6 @@ set expandtab
 set tabstop=2
 set shiftwidth=2
 
-"colorscheme blackboard  
 "set guifont=Inconsolata:h13:cANSI "for windows
 set guifont=Monaco     
 set gfw=Monaco
@@ -39,8 +38,11 @@ set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 
 " color
 :set t_Co=256
-:set background=dark
-:color grb256
+:color jellybeans
+" colorscheme jellybeans
+
+" status line
+:set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03v%)
 
 " move around splits with <c-hjkl>
 nnoremap <c-j> <c-w>j
@@ -70,7 +72,7 @@ map <leader>n :call RenameFile()<cr>
 nmap <leader>w :w<cr>
 nmap <leader>e :e<Space>
 nmap <leader>q :q<cr>
-nmap <leader>t :w\|:! rspec spec<cr>
+nmap <leader>t :! rspec spec<cr>
 
 let g:rubycomplete_buffer_loading = 0
 let g:rubycomplete_classes_in_global = 1
