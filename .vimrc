@@ -48,6 +48,12 @@ nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
 
+" map shortkeys
+nnoremap <leader>s <c-w>o
+map <leader>gr :topleft :split config/routes.rb<cr>
+map <leader>gg :topleft 100 :split Gemfile<cr>
+
+
 " rename current file
 function! RenameFile()
   let old_name = expand('%')
@@ -64,6 +70,7 @@ map <leader>n :call RenameFile()<cr>
 nmap <leader>w :w<cr>
 nmap <leader>e :e<Space>
 nmap <leader>q :q<cr>
+nmap <leader>t :w\|:! rspec spec<cr>
 
 let g:rubycomplete_buffer_loading = 0
 let g:rubycomplete_classes_in_global = 1
@@ -95,4 +102,4 @@ let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
 
 "----for netrw
-let g:netrw_winsize = 30
+let g:netrw_winsize = 30 
