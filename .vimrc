@@ -72,7 +72,10 @@ map <leader>n :call RenameFile()<cr>
 nmap <leader>w :w<cr>
 nmap <leader>e :e<Space>
 nmap <leader>q :q<cr>
-nmap <leader>t :! rspec spec<cr>
+nmap <leader>t :w\|:!rspec spec<cr>
+
+imap <leader>ij <%  %>
+imap <leader>ii <%=  %>
 
 let g:rubycomplete_buffer_loading = 0
 let g:rubycomplete_classes_in_global = 1
