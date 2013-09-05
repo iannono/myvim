@@ -38,11 +38,7 @@ set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 
 " color
 :set t_Co=256
-:color jellybeans
-" colorscheme jellybeans
-
-" status line
-:set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03v%)
+:color jellybeans 
 
 " move around splits with <c-hjkl>
 nnoremap <c-j> <c-w>j
