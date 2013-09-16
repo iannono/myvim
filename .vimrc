@@ -28,6 +28,9 @@ set smartindent
 set backspace=2
 set autoindent
 set nocompatible
+set scrolloff=3
+set nostartofline
+set showcmd
 set fileencodings=ucs-bom,utf-8,chinese
 set clipboard+=unnamed "windows
 
@@ -38,13 +41,21 @@ set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 
 " color
 :set t_Co=256
-:color jellybeans 
+:color jellybeans
+" colorscheme jellybeans 
 
 " move around splits with <c-hjkl>
 nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
+
+nnoremap <c-e> 3<c-e>
+nnoremap <c-y> 3<c-y>
+vnoremap <c-e> 3<c-e>
+vnoremap <c-y> 3<c-y>
+
+nnoremap <tab> %
 
 " map shortkeys
 nnoremap <leader>s <c-w>o
@@ -68,10 +79,23 @@ map <leader>n :call RenameFile()<cr>
 nmap <leader>w :w<cr>
 nmap <leader>e :e<Space>
 nmap <leader>q :q<cr>
-nmap <leader>t :w\|:!rspec spec<cr>
+nmap <leader>t :w\|:! rspec spec<cr>
 
-imap <leader>ij <%  %>
-imap <leader>ii <%=  %>
+vmap <Tab> >gv
+vmap <S-Tab> <gv
+vmap > >gv
+vmap < <gv
+
+" tab mapping
+map <leader>tt :tabnew<cr>
+map <leader>te :tabedit
+map <leader>tc :tabclose<cr>
+map <leader>to :tabonly<cr>
+map <leader>tn :tabnext<cr>
+map <leader>tp :tabprevious<cr>
+map <leader>tf :tabfirst<cr>
+map <leader>tl :tablast<cr>
+map <leader>tm :tabmove
 
 let g:rubycomplete_buffer_loading = 0
 let g:rubycomplete_classes_in_global = 1
@@ -87,10 +111,10 @@ endf
 
 
 "----ctrlp config
-let g:ctrlp_map = '<c-p>'
+let g:ctrlp_map = '<leader>o'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'a'
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+set wildignore+=tmp/*,*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 "set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
