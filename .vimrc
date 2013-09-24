@@ -16,6 +16,7 @@ set incsearch
 set hlsearch
 set cursorline
 set cuc
+set number
 set cmdheight=2
 set showtabline=2
 set winwidth=79
@@ -38,6 +39,10 @@ set clipboard+=unnamed "windows
 set backup
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set undodir=~/.vim/.undo
+set undofile
+set undolevels=1000
+set undoreload=10000
 
 " color
 :set t_Co=256
@@ -48,20 +53,22 @@ set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
-nnoremap <c-l> <c-w>l
+nnoremap <c-l> <c-w>l 
 
 nnoremap <c-e> 3<c-e>
 nnoremap <c-y> 3<c-y>
 vnoremap <c-e> 3<c-e>
 vnoremap <c-y> 3<c-y>
 
-nnoremap <tab> %
+nnoremap <tab> %  
 
-" map shortkeys
-nnoremap <leader>s <c-w>o
+" edit mapping
 map <leader>gr :topleft :split config/routes.rb<cr>
 map <leader>gg :topleft 100 :split Gemfile<cr>
-
+nnoremap <leader>ev :split $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
+nnoremap <leader>so <c-w>o 
+inoremap jk <esc>
 
 " rename current file
 function! RenameFile()
@@ -75,16 +82,19 @@ function! RenameFile()
 endfunction
 map <leader>n :call RenameFile()<cr> 
           
-" map key
+" normal mapping
 nmap <leader>w :w<cr>
-nmap <leader>e :e<Space>
 nmap <leader>q :q<cr>
+noremap <leader>wq :wq<cr>
 nmap <leader>t :w\|:! rspec spec<cr>
 
-vmap <Tab> >gv
-vmap <S-Tab> <gv
+imap <Tab> <C-N>
+imap <S-Tab> <C-P>
 vmap > >gv
-vmap < <gv
+vmap < <gv 
+
+" map for ragtag
+imap <leader>x <c-x>
 
 " tab mapping
 map <leader>tt :tabnew<cr>
@@ -100,15 +110,6 @@ map <leader>tm :tabmove
 let g:rubycomplete_buffer_loading = 0
 let g:rubycomplete_classes_in_global = 1
 let g:rubycomplete_rails = 1 
-
-function ClosePair(char)
-      if getline('.')[col('.') - 1] == a:char
-          return "\<Right>"
-      else
-          return a:char
-      endif
-endf
-
 
 "----ctrlp config
 let g:ctrlp_map = '<leader>o'
