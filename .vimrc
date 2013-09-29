@@ -29,11 +29,19 @@ set smartindent
 set backspace=2
 set autoindent
 set nocompatible
-set scrolloff=3
+set scrolloff=5
 set nostartofline
+set paste
 set showcmd
 set fileencodings=ucs-bom,utf-8,chinese
 set clipboard+=unnamed "windows
+
+set winwidth=84
+set winheight=5
+set winminheight=5
+set winheight=999
+set splitbelow
+set splitright
 
 " store temporary files in a central spot
 set backup
@@ -85,7 +93,6 @@ map <leader>n :call RenameFile()<cr>
 " normal mapping
 nmap <leader>w :w<cr>
 nmap <leader>q :q<cr>
-noremap <leader>wq :wq<cr>
 nmap <leader>t :w\|:! rspec spec<cr>
 
 imap <Tab> <C-N>
