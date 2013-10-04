@@ -31,17 +31,17 @@ set autoindent
 set nocompatible
 set scrolloff=5
 set nostartofline
-set paste
+"set paste
 set showcmd
 set fileencodings=ucs-bom,utf-8,chinese
 set clipboard+=unnamed "windows
 
-set winwidth=84
-set winheight=5
-set winminheight=5
-set winheight=999
-set splitbelow
-set splitright
+" set winwidth=84
+" set winheight=5
+" set winminheight=5
+" set winheight=999
+" set splitbelow
+" set splitright
 
 " store temporary files in a central spot
 set backup
@@ -68,15 +68,22 @@ nnoremap <c-y> 3<c-y>
 vnoremap <c-e> 3<c-e>
 vnoremap <c-y> 3<c-y>
 
+noremap <leader>h ^
+noremap <leader>l $
+
 nnoremap <tab> %  
 
 " edit mapping
+map <leader>e :e <C-R>=expand("%:p:h") . '/'<CR>
+map <leader>s :split <C-R>=expand("%:p:h") . '/'<CR>
+map <leader>v :vnew <C-R>=expand("%:p:h") . '/'<CR>
+
 map <leader>gr :topleft :split config/routes.rb<cr>
 map <leader>gg :topleft 100 :split Gemfile<cr>
 nnoremap <leader>ev :split $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 nnoremap <leader>so <c-w>o 
-inoremap jk <esc>
+inoremap <esc> <esc>:w<cr>
 
 " rename current file
 function! RenameFile()
@@ -136,3 +143,61 @@ let g:html_indent_style1 = "inc"
 
 "----for netrw
 let g:netrw_winsize = 30 
+
+" Test helpers from Gary Bernhardt's screen cast:
+" https://www.destroyallsoftware.com/screencasts/catalog/file-navigation-in-vim
+" https://www.destroyallsoftware.com/file-navigation-in-vim.html
+function! RunTests(filename)
+    " Write the file and run tests for the given filename
+    :w
+    :silent !echo;echo;echo;echo;echo
+    let rspec_bin = FindRSpecBinary(".")
+    exec ":!time NOEXEC=0 " . rspec_bin . a:filename " --backtrace"
+endfunction
+
+function! FindRSpecBinary(dir)
+  if filereadable(a:dir . "/bin/rspec")
+    return a:dir . "/bin/rspec "
+  elseif filereadable(a:dir . "/.git/config")
+    " If there's a .git/config file, assume it is the project root;
+    " Just run the system-gem installed rspec binary.
+    return "rspec "
+  else
+    " We may be in a project sub-dir; check our parent dir
+    return FindRSpecBinary(a:dir . "/..")
+  endif
+endfunction
+
+function! SetTestFile()
+    " Set the spec file that tests will be run for.
+    let t:grb_test_file=@%
+endfunction
+
+function! RunTestFile(...)
+    if a:0
+        let command_suffix = a:1
+    else
+        let command_suffix = ""
+    endif
+
+    " Run the tests for the previously-marked file.
+    let in_spec_file = match(expand("%"), '_spec.rb$') != -1
+    if in_spec_file
+        call SetTestFile()
+    elseif !exists("t:grb_test_file")
+        return
+    end
+    call RunTests(t:grb_test_file . command_suffix)
+endfunction
+
+function! RunNearestTest()
+    let spec_line_number = line('.')
+    call RunTestFile(":" . spec_line_number)
+endfunction
+
+" Run this file
+map <leader>m :call RunTestFile()<cr>
+" Run only the example under the cursor
+map <leader>. :call RunNearestTest()<cr>
+" Run all test files
+map <leader>a :call RunTests('spec')<cr>
