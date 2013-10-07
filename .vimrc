@@ -31,17 +31,16 @@ set autoindent
 set nocompatible
 set scrolloff=5
 set nostartofline
-"set paste
 set showcmd
 set fileencodings=ucs-bom,utf-8,chinese
 set clipboard+=unnamed "windows
 
-" set winwidth=84
-" set winheight=5
-" set winminheight=5
-" set winheight=999
-" set splitbelow
-" set splitright
+set winwidth=84
+set winheight=5
+set winminheight=5
+set winheight=999
+set splitbelow
+set splitright
 
 " store temporary files in a central spot
 set backup
@@ -53,8 +52,8 @@ set undolevels=1000
 set undoreload=10000
 
 " color
-:set t_Co=256
-:color jellybeans
+set t_Co=256
+color jellybeans
 " colorscheme jellybeans 
 
 " move around splits with <c-hjkl>
@@ -73,37 +72,23 @@ noremap <leader>l $
 
 nnoremap <tab> %  
 
-" edit mapping
-map <leader>e :e <C-R>=expand("%:p:h") . '/'<CR>
-map <leader>s :split <C-R>=expand("%:p:h") . '/'<CR>
-map <leader>v :vnew <C-R>=expand("%:p:h") . '/'<CR>
-
+" edit mapping 
 map <leader>gr :topleft :split config/routes.rb<cr>
 map <leader>gg :topleft 100 :split Gemfile<cr>
-nnoremap <leader>ev :split $MYVIMRC<cr>
-nnoremap <leader>sv :source $MYVIMRC<cr>
+noremap <leader>ev :split $MYVIMRC<cr>
+noremap <leader>sv :source $MYVIMRC<cr>
 nnoremap <leader>so <c-w>o 
-inoremap <esc> <esc>:w<cr>
+inoremap <leader>= <%=  %><esc>hhi
+inoremap <leader>- <%  %><esc>hhi
+nnoremap <leader>= i<%=  %><esc>hhi
+nnoremap <leader>- i<%  %><esc>hhi
+inoremap <esc> <esc>l
 
-" rename current file
-function! RenameFile()
-  let old_name = expand('%')
-  let new_name = input('New file name: ', expand('%'))
-  if new_name != '' && new_name != old_name
-    exec ':saveas ' . new_name
-    exec ':silent !rm ' . old_name
-    redraw!
-  endif
-endfunction
-map <leader>n :call RenameFile()<cr> 
-          
+
 " normal mapping
 nmap <leader>w :w<cr>
 nmap <leader>q :q<cr>
-nmap <leader>t :w\|:! rspec spec<cr>
 
-imap <Tab> <C-N>
-imap <S-Tab> <C-P>
 vmap > >gv
 vmap < <gv 
 
@@ -144,60 +129,94 @@ let g:html_indent_style1 = "inc"
 "----for netrw
 let g:netrw_winsize = 30 
 
-" Test helpers from Gary Bernhardt's screen cast:
-" https://www.destroyallsoftware.com/screencasts/catalog/file-navigation-in-vim
-" https://www.destroyallsoftware.com/file-navigation-in-vim.html
-function! RunTests(filename)
-    " Write the file and run tests for the given filename
-    :w
-    :silent !echo;echo;echo;echo;echo
-    let rspec_bin = FindRSpecBinary(".")
-    exec ":!time NOEXEC=0 " . rspec_bin . a:filename " --backtrace"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"copyed from Gary bernhardt's vimrc
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+augroup vimrcEx
+  " Clear all autocmds in the group
+  autocmd!
+  autocmd FileType text setlocal textwidth=78
+  " Jump to last cursor position unless it's invalid or in an event handler
+  autocmd BufReadPost *
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal g`\"" |
+    \ endif
+augroup END
+
+" status line
+:set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
+
+" Close all other windows, open a vertical split, and open this file's test
+" alternate in it.
+nnoremap <leader>s :call FocusOnFile()<cr>
+function! FocusOnFile()
+  vsp %
+  " normal! v 
+  " normal! l
+  call OpenTestAlternate()
+  " normal! h
 endfunction
 
-function! FindRSpecBinary(dir)
-  if filereadable(a:dir . "/bin/rspec")
-    return a:dir . "/bin/rspec "
-  elseif filereadable(a:dir . "/.git/config")
-    " If there's a .git/config file, assume it is the project root;
-    " Just run the system-gem installed rspec binary.
-    return "rspec "
-  else
-    " We may be in a project sub-dir; check our parent dir
-    return FindRSpecBinary(a:dir . "/..")
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" MULTIPURPOSE TAB KEY
+" Indent if we're at the beginning of a line. Else, do completion.
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! InsertTabWrapper()
+    let col = col('.') - 1
+    if !col || getline('.')[col - 1] !~ '\k'
+        return "\<tab>"
+    else
+        return "\<c-p>"
+    endif
+endfunction
+inoremap <tab> <c-r>=InsertTabWrapper()<cr>
+inoremap <s-tab> <c-n>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" OPEN FILES IN DIRECTORY OF CURRENT FILE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+cnoremap %% <C-R>=expand('%:h').'/'<cr>
+map <leader>e :edit %%
+map <leader>v :view %%
+
+" rename current file
+function! RenameFile()
+  let old_name = expand('%')
+  let new_name = input('New file name: ', expand('%'))
+  if new_name != '' && new_name != old_name
+    exec ':saveas ' . new_name
+    exec ':silent !rm ' . old_name
+    redraw!
   endif
 endfunction
+map <leader>n :call RenameFile()<cr> 
 
-function! SetTestFile()
-    " Set the spec file that tests will be run for.
-    let t:grb_test_file=@%
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" SWITCH BETWEEN TEST AND PRODUCTION CODE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! OpenTestAlternate()
+  let new_file = AlternateForCurrentFile()
+  exec ':e ' . new_file
 endfunction
-
-function! RunTestFile(...)
-    if a:0
-        let command_suffix = a:1
-    else
-        let command_suffix = ""
-    endif
-
-    " Run the tests for the previously-marked file.
-    let in_spec_file = match(expand("%"), '_spec.rb$') != -1
-    if in_spec_file
-        call SetTestFile()
-    elseif !exists("t:grb_test_file")
-        return
+function! AlternateForCurrentFile()
+  let current_file = expand("%")
+  let new_file = current_file
+  let in_spec = match(current_file, '^spec/') != -1
+  let going_to_spec = !in_spec
+  let in_app = match(current_file, '\<controllers\>') != -1 || match(current_file, '\<models\>') != -1 || match(current_file, '\<views\>') != -1 || match(current_file, '\<helpers\>') != -1
+  if going_to_spec
+    if in_app
+      let new_file = substitute(new_file, '^app/', '', '')
     end
-    call RunTests(t:grb_test_file . command_suffix)
+    let new_file = substitute(new_file, '\.e\?rb$', '_spec.rb', '')
+    let new_file = 'spec/' . new_file
+  else
+    let new_file = substitute(new_file, '_spec\.rb$', '.rb', '')
+    let new_file = substitute(new_file, '^spec/', '', '')
+    if in_app
+      let new_file = 'app/' . new_file
+    end
+  endif
+  return new_file
 endfunction
-
-function! RunNearestTest()
-    let spec_line_number = line('.')
-    call RunTestFile(":" . spec_line_number)
-endfunction
-
-" Run this file
-map <leader>m :call RunTestFile()<cr>
-" Run only the example under the cursor
-map <leader>. :call RunNearestTest()<cr>
-" Run all test files
-map <leader>a :call RunTests('spec')<cr>
+nnoremap <leader>. :call OpenTestAlternate()<cr> 
