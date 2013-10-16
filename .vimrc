@@ -53,7 +53,10 @@ set undoreload=10000
 
 " color
 set t_Co=256
-color jellybeans
+color harlem-nights
+" color molokai
+" color zenburn
+" color seoul256
 " colorscheme jellybeans 
 
 " move around splits with <c-hjkl>
@@ -82,11 +85,19 @@ inoremap <leader>= <%=  %><esc>hhi
 inoremap <leader>- <%  %><esc>hhi
 nnoremap <leader>= i<%=  %><esc>hhi
 nnoremap <leader>- i<%  %><esc>hhi
-inoremap <esc> <esc>l
+inoremap <leader>i <esc>ko
+inoremap <leader>a <esc>la<space>
+inoremap <leader><leader> <esc>la,<space>
+inoremap <leader>d <esc>A
+
+" for elixir
+inoremap <leader>1 &1
+inoremap <leader>2 &2
 
 
 " normal mapping
-nmap <leader>w :w<cr>
+inoremap <leader>w <esc>:w<cr>
+nnoremap <leader>w :w<cr>
 nmap <leader>q :q<cr>
 
 vmap > >gv
