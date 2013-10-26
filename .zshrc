@@ -5,7 +5,7 @@ ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="robbyrussell"
+ZSH_THEME="arrow"
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -14,7 +14,7 @@ ZSH_THEME="robbyrussell"
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
 
-# Uncomment this to disable bi-weekly auto-update checks
+# Comment this out to disable bi-weekly auto-update checks
 # DISABLE_AUTO_UPDATE="true"
 
 # Uncomment to change how often before auto-updates occur? (in days)
@@ -45,10 +45,6 @@ plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=$PATH:/home/ian/.rbenv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
-
 # ==alias==
 # git
 alias gst="git status"
@@ -63,3 +59,9 @@ alias gr="git rebase"
 alias rg="rails generate"
 alias rdm="rake db:migrate"
 alias rdt="rake db:test:prepare"
+
+# tmux
+alias tmux=tmux -2
+alias sm=start_mytmux
+
+export PATH=$PATH:/home/ian/.rbenv/shims:/home/ian/.rbenv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/ian/elixir-0.10.2/bin:/home/ian/phantomjs/bin 

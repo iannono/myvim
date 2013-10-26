@@ -1,0 +1,16 @@
+#!/bin/sh
+
+session="momo"
+
+tmux has-session -t $session
+if [ $? != 0 ]
+then
+  tmux new -s $session -n vim -d
+  tmux splitw -v -p 20 -t $session
+  tmux splitw -h -p 50 -t $session
+  tmux select-pane -t $session:0.0
+fi
+
+tmux attach -t $session
+
+exit 0

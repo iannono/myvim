@@ -19,9 +19,9 @@ let g:colors_name="harlem-nights"
 " --------------------------------
 hi Normal          ctermfg=250    ctermbg=235    cterm=none
 hi Cursor          ctermfg=none   ctermbg=none   cterm=none
-hi CursorLine      ctermfg=none   ctermbg=236    cterm=none
+hi CursorLine      ctermfg=none   ctermbg=236    cterm=bold
 hi LineNr          ctermfg=239    ctermbg=none   cterm=none
-hi CursorLineNR    ctermfg=130    ctermbg=none   cterm=none
+hi CursorLineNR    ctermfg=130    ctermbg=none   cterm=bold
 " }}}
 
 " Number column {{{1
