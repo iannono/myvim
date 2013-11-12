@@ -56,7 +56,6 @@ set t_Co=256
 color harlem-nights
 " color molokai
 " color zenburn
-" color seoul256
 " colorscheme jellybeans 
 
 " move around splits with <c-hjkl>
@@ -72,6 +71,9 @@ vnoremap <c-y> 3<c-y>
 
 noremap <leader>h ^
 noremap <leader>l $
+inoremap <leader>l <esc>A
+inoremap <leader>h <esc>I
+nnoremap <leader>d <esc>^v$h
 
 nnoremap <tab> %  
 
@@ -85,10 +87,11 @@ inoremap <leader>= <%=  %><esc>hhi
 inoremap <leader>- <%  %><esc>hhi
 nnoremap <leader>= i<%=  %><esc>hhi
 nnoremap <leader>- i<%  %><esc>hhi
-inoremap <leader>i <esc>ko
-inoremap <leader>a <esc>la<space>
-inoremap <leader><leader> <esc>la,<space>
-inoremap <leader>d <esc>A
+inoremap <leader>a <esc>la
+inoremap <leader><leader> <esc>la,
+inoremap <leader>k <esc>O
+nnoremap <leader>k O
+inoremap <leader>j <esc>o
 
 " for elixir
 inoremap <leader>1 &1
