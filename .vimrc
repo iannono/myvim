@@ -8,7 +8,7 @@ set tabstop=2
 set shiftwidth=2
 
 "set guifont=Inconsolata:h13:cANSI "for windows
-set guifont=Monaco     
+set guifont=Monaco:h18     
 set gfw=Monaco
 set nu!
 set showmatch
@@ -17,10 +17,12 @@ set hlsearch
 set cursorline
 set cuc
 set number
-set cmdheight=2
-set showtabline=2
+set cmdheight=1
+set showtabline=0
+set statusline=[%F]%y%r%m%*%=[Line:%l/%L,Column:%c][%p%%]
+set autochdir
 set winwidth=79
-set shell=bash
+set shell=zsh
 set mouse=a
 set writebackup
 set nobackup
@@ -34,6 +36,7 @@ set nostartofline
 set showcmd
 set fileencodings=ucs-bom,utf-8,chinese
 set clipboard+=unnamed "windows
+set noeb
 
 set winwidth=84
 set winheight=5
@@ -41,6 +44,15 @@ set winminheight=5
 set winheight=999
 set splitbelow
 set splitright
+
+if has("gui_running")
+    set guioptions-=m " 隐藏菜单栏
+    set guioptions-=T " 隐藏工具栏
+    set guioptions-=L " 隐藏左侧滚动条
+    set guioptions-=r " 隐藏右侧滚动条
+    set guioptions-=b " 隐藏底部滚动条
+    set showtabline=0 " 隐藏Tab栏
+endif
 
 " store temporary files in a central spot
 set backup
@@ -53,9 +65,9 @@ set undoreload=10000
 
 " color
 set t_Co=256
-color harlem-nights
+"color harlem-nights
 " color molokai
-" color zenburn
+color zenburn
 " colorscheme jellybeans 
 
 " move around splits with <c-hjkl>
@@ -92,6 +104,9 @@ inoremap <leader><leader> <esc>la,
 inoremap <leader>k <esc>O
 nnoremap <leader>k O
 inoremap <leader>j <esc>o
+inoremap jk <esc>:w<cr>
+inoremap <leader>; <esc>lxa
+
 
 " for elixir
 inoremap <leader>1 &1
