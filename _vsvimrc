@@ -1,0 +1,111 @@
+syntax on
+filetype plugin indent on
+let mapleader=","
+
+set expandtab
+set tabstop=2
+set shiftwidth=2
+
+set guifont=Inconsolata:h13:cANSI "for windows
+set nu!
+set showmatch
+set incsearch
+set hlsearch
+set cursorline
+set cuc
+set number
+set cmdheight=2
+set showtabline=2
+set winwidth=79
+set shell=bash
+set mouse=a
+set writebackup
+set nobackup
+set noswapfile
+set smartindent
+set backspace=2
+set autoindent
+set nocompatible
+set scrolloff=5
+set nostartofline
+set showcmd
+set fileencodings=ucs-bom,utf-8,chinese
+set clipboard+=unnamed "windows
+
+set winwidth=84
+set winheight=5
+set winminheight=5
+set winheight=999
+set splitbelow
+set splitright
+
+" store temporary files in a central spot
+set backup
+set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set undodir=~/.vim/.undo
+set undofile
+set undolevels=1000
+set undoreload=10000
+
+" color
+set t_Co=256
+color kolor
+" colorscheme jellybeans 
+
+" move around splits with <c-hjkl>
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l 
+
+nnoremap <c-e> 3<c-e>
+nnoremap <c-y> 3<c-y>
+vnoremap <c-e> 3<c-e>
+vnoremap <c-y> 3<c-y>
+
+noremap <leader>h ^
+noremap <leader>l $
+
+nnoremap <tab> %  
+
+" edit mapping 
+map <leader>gr :topleft :split config/routes.rb<cr>
+map <leader>gg :topleft 100 :split Gemfile<cr>
+noremap <leader>ev :split $MYVIMRC<cr>
+noremap <leader>sv :source $MYVIMRC<cr>
+nnoremap <leader>so <c-w>o 
+inoremap <leader>= <%=  %><esc>hhi
+inoremap <leader>- <%  %><esc>hhi
+nnoremap <leader>= i<%=  %><esc>hhi
+nnoremap <leader>- i<%  %><esc>hhi
+inoremap <esc> <esc>l
+inoremap <leader>a <esc>la
+inoremap <leader>j <esc>ko
+noremap <leader>k <esc>O
+inoremap <leader>k <esc>O
+inoremap jk <esc>l
+inoremap <leader>j <esc>hi<cr><esc>O
+
+
+" normal mapping
+inoremap <leader>w <esc>:w!<cr>
+nmap <leader>q :q<cr>
+
+vmap > >gv
+vmap < <gv 
+
+" map for ragtag
+imap <leader>x <c-x>
+
+" tab mapping
+map <leader>tt :tabnew<cr>
+map <leader>te :tabedit
+map <leader>tc :tabclose<cr>
+map <leader>to :tabonly<cr>
+map <leader>tn :tabnext<cr>
+map <leader>tp :tabprevious<cr>
+map <leader>tf :tabfirst<cr>
+map <leader>tl :tablast<cr>
+map <leader>tm :tabmove
+
