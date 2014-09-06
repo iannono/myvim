@@ -2,26 +2,22 @@ execute pathogen#infect()
 syntax on
 filetype plugin indent on
 let mapleader=","
+let g:Tlist_Ctags_Cmd='/usr/local/bin/ctags'
 
 set expandtab
 set tabstop=2
 set shiftwidth=2
 
 "set guifont=Inconsolata:h13:cANSI "for windows
-set guifont=Monaco:h18     
+set guifont=Monaco:h18
 set gfw=Monaco
-set nu!
 set showmatch
 set incsearch
 set hlsearch
-set cursorline
-set cuc
 set number
 set cmdheight=1
 set showtabline=0
-set statusline=[%F]%y%r%m%*%=[Line:%l/%L,Column:%c][%p%%]
-set autochdir
-set winwidth=79
+set statusline=[%F]%y%r%m%*%=[Line:%l/%L,Column:%c][%p%%]%{fugitive#statusline()}
 set shell=zsh
 set mouse=a
 set writebackup
@@ -31,14 +27,21 @@ set smartindent
 set backspace=2
 set autoindent
 set nocompatible
-set scrolloff=5
-set nostartofline
 set showcmd
 set fileencodings=ucs-bom,utf-8,chinese
 set clipboard+=unnamed "windows
 set noeb
+set nu
+set norelativenumber
+set nocursorline
+set noshowmatch         
+set nocursorline        
+set nocursorcolumn      
+set lazyredraw          
+set nostartofline
+set scrolloff=3
 
-set winwidth=84
+set winwidth=80
 set winheight=5
 set winminheight=5
 set winheight=999
@@ -51,7 +54,7 @@ if has("gui_running")
     set guioptions-=L " 隐藏左侧滚动条
     set guioptions-=r " 隐藏右侧滚动条
     set guioptions-=b " 隐藏底部滚动条
-    set showtabline=0 " 隐藏Tab栏
+    set showtabline=2 " 隐藏Tab栏
 endif
 
 " store temporary files in a central spot
@@ -64,17 +67,19 @@ set undolevels=1000
 set undoreload=10000
 
 " color
-set t_Co=256
-"color harlem-nights
+" set t_Co=256
 " color molokai
-color zenburn
-" colorscheme jellybeans 
+" color zenburn
+" let g:seoul256_background = 234
+" colo seoul256
+set background=dark
+colo solarized
 
 " move around splits with <c-hjkl>
 nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
-nnoremap <c-l> <c-w>l 
+nnoremap <c-l> <c-w>l
 
 nnoremap <c-e> 3<c-e>
 nnoremap <c-y> 3<c-y>
@@ -87,14 +92,14 @@ inoremap <leader>l <esc>A
 inoremap <leader>h <esc>I
 nnoremap <leader>d <esc>^v$h
 
-nnoremap <tab> %  
+nnoremap <tab> %
 
-" edit mapping 
+" edit mapping
 map <leader>gr :topleft :split config/routes.rb<cr>
 map <leader>gg :topleft 100 :split Gemfile<cr>
 noremap <leader>ev :split $MYVIMRC<cr>
 noremap <leader>sv :source $MYVIMRC<cr>
-nnoremap <leader>so <c-w>o 
+nnoremap <leader>so <c-w>o
 inoremap <leader>= <%=  %><esc>hhi
 inoremap <leader>- <%  %><esc>hhi
 nnoremap <leader>= i<%=  %><esc>hhi
@@ -105,50 +110,72 @@ inoremap <leader>k <esc>O
 nnoremap <leader>k O
 inoremap <leader>j <esc>o
 inoremap jk <esc>:w<cr>
-inoremap <leader>; <esc>lxa
+inoremap <leader>; <esc>lxa<esc>
+inoremap <leader>m <esc>mA
+inoremap <leader>` <esc>`A
+nnoremap <leader>m mA
+nnoremap <leader>` `A
+
+inoremap <leader>rm :Rmodel 
+nnoremap <leader>rm :Rmodel 
+inoremap <leader>rc :Rcontroller 
+nnoremap <leader>rc :Rcontroller 
+inoremap <leader>rv :Rview 
+nnoremap <leader>rv :Rview 
+inoremap <leader>rh :Rhelper
+nnoremap <leader>rh :Rhelper 
+inoremap <leader>rs :Rspec 
+nnoremap <leader>rs :Rspec 
+
+" for ctags
+nnoremap <f4> :!ctags -R<cr>
 
 
 " for elixir
 inoremap <leader>1 &1
 inoremap <leader>2 &2
 
+" for test
+" nnoremap <leader>t :!rspec %<cr>
+" inoremap <leader>t :!rspec %<cr>
+" nnoremap <leader>tf :!rspec % --tag focus<cr>
+" inoremap <leader>tf :!rspec % --tag focus<cr>
 
 " normal mapping
 inoremap <leader>w <esc>:w<cr>
 nnoremap <leader>w :w<cr>
 nmap <leader>q :q<cr>
+nnoremap <leader>r <F5>
 
 vmap > >gv
-vmap < <gv 
+vmap < <gv
 
 " map for ragtag
 imap <leader>x <c-x>
 
 " tab mapping
 map <leader>tt :tabnew<cr>
-map <leader>te :tabedit
+map <leader>te :tabedit %%
 map <leader>tc :tabclose<cr>
 map <leader>to :tabonly<cr>
 map <leader>tn :tabnext<cr>
 map <leader>tp :tabprevious<cr>
-map <leader>tf :tabfirst<cr>
-map <leader>tl :tablast<cr>
+" map <leader>tf :tabfirst<cr>
+" map <leader>tl :tablast<cr>
 map <leader>tm :tabmove
 
-let g:rubycomplete_buffer_loading = 0
-let g:rubycomplete_classes_in_global = 1
-let g:rubycomplete_rails = 1 
+let g:vim_markdown_folding_disabled=1
 
 "----ctrlp config
-let g:ctrlp_map = '<leader>o'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = 'a'
-set wildignore+=tmp/*,*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
-"set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+" let g:ctrlp_map = '<leader>o'
+" let g:ctrlp_cmd = 'CtrlP'
+" let g:ctrlp_working_path_mode = 'a'
+" set wildignore+=tmp/*,*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+" set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
+" let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
-let g:ctrlp_user_command = 'find %s -type f'        " MacOSX/Linux
-"let g:ctrlp_user_command = 'dir %s /-n /b /s /a-d'  " Windows
+" let g:ctrlp_user_command = 'find %s -type f'        " MacOSX/Linux
+" let g:ctrlp_user_command = 'dir %s /-n /b /s /a-d'  " Windows
 
 "----javascript config
 let g:html_indent_inctags = "html,body,head,tbody"
@@ -156,7 +183,7 @@ let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
 
 "----for netrw
-let g:netrw_winsize = 30 
+let g:netrw_winsize = 30
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "copyed from Gary bernhardt's vimrc
@@ -180,7 +207,7 @@ augroup END
 nnoremap <leader>s :call FocusOnFile()<cr>
 function! FocusOnFile()
   vsp %
-  " normal! v 
+  " normal! v
   " normal! l
   call OpenTestAlternate()
   " normal! h
@@ -218,7 +245,7 @@ function! RenameFile()
     redraw!
   endif
 endfunction
-map <leader>n :call RenameFile()<cr> 
+map <leader>n :call RenameFile()<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SWITCH BETWEEN TEST AND PRODUCTION CODE
@@ -248,4 +275,7 @@ function! AlternateForCurrentFile()
   endif
   return new_file
 endfunction
-nnoremap <leader>. :call OpenTestAlternate()<cr> 
+nnoremap <leader>. :call OpenTestAlternate()<cr>
+
+" Markdown
+let g:markdown_fenced_languages = ['coffee', 'css', 'erb=eruby', 'javascript', 'js=javascript', 'json=javascript', 'ruby', 'sass', 'xml']
