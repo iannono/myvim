@@ -147,6 +147,10 @@ nnoremap <leader>w :w<cr>
 nmap <leader>q :q<cr>
 nnoremap <leader>r <F5>
 
+" for search
+inoremap <leader>ss <esc>/++
+nnoremap <leader>ss <esc>/++
+
 vmap > >gv
 vmap < <gv
 
