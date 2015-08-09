@@ -1,0 +1,60 @@
+
+" move around splits with <c-hjkl>
+nmap <c-j> <c-w>j
+nmap <c-k> <c-w>k
+nmap <c-h> <c-w>h
+nmap <c-l> <c-w>l
+
+nmap <c-e> 3<c-e>
+nmap <c-y> 3<c-y>
+vmap <c-e> 3<c-e>
+vmap <c-y> 3<c-y>
+
+nmap ,h ^
+nmap ,l $
+imap ,l <esc>A
+imap ,h <esc>I
+nmap ,d <esc>^v$h
+
+" edit mapping
+nmap ,ev :split $MYVIMRC<cr>
+nmap ,sv :source $MYVIMRC<cr>
+nmap ,so <c-w>o
+imap ,= <%=  %><esc>hhi
+imap ,- <%  %><esc>hhi
+nmap ,= i<%=  %><esc>hhi
+nmap ,- i<%  %><esc>hhi
+imap ,a <esc>la
+imap ,<leader> <esc>la,
+imap ,k <esc>O
+nmap ,k O
+imap ,j <esc>o
+imap jk <esc>:w<cr>
+imap ,; <esc>lxa<esc>
+imap ,m <esc>mA
+imap ,` <esc>`A
+nmap ,m mA
+nmap ,` `A
+
+
+" normal mapping
+imap ,w <esc>:w<cr>
+nmap ,w :w<cr>
+nmap ,q :q<cr>
+nmap ,r <F5>
+
+" for search
+imap ,ss <esc>/++
+nmap ,ss <esc>/++
+imap ,sss <esc>/+++
+nmap ,sss <esc>/+++
+
+vmap > >gv
+vmap < <gv 
+
+"fold
+map ,zf :xccmd fold<cr>
+map ,zu :xccmd unfold<cr>
+
+"search
+set ignorecase
